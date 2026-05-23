@@ -5,10 +5,8 @@
       ./services/networking.nix
       ./services/apps.nix
     ];
+    
     nixpkgs.config.allowUnfree = true;
-    networking.hostName = "nanopi-r5s";
-    networking.useDHCP = lib.mkDefault true;
-    networking.firewall.allowedTCPPorts = [22];
 
     fileSystems."/" = {
     	device = "/dev/disk/by-label/NIXOS";
@@ -24,8 +22,6 @@
 	        PasswordAuthentication = true;
         };
     };
-
-    services.netbird.enable = true;
 
     users.users.dalen = {
     	isNormalUser = true;
