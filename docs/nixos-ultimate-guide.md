@@ -72,30 +72,36 @@ Set up this directory layout from day one. Adding structure later is painful.
 nixos-config/
 ├── flake.nix                     # entry point — defines all hosts
 ├── flake.lock                    # pinned input versions — commit this
+├── docs/
+│   ├── DEVELOPMENT.md
+│   ├── DISK_IDENTIFICATION.md
+│   ├── INSTALLATION.md
+│   └── nixos-ultimate-guide.md
 ├── hosts/
-│   ├── homelab/
-│   │   ├── default.nix           # hardware + host-specific config
-│   │   └── hardware-configuration.nix
-│   ├── desktop/
-│   │   ├── default.nix
-│   │   └── hardware-configuration.nix
-│   ├── laptop/
-│   │   └── default.nix
-│   ├── inspiron2200/
-│   │   └── default.nix           # minimal terminal-only profile
-│   └── common/
-│       └── default.nix           # shared: locale, SSH, firewall, base packages
+│   ├── common/
+│   │   └── default.nix           # shared: locale, SSH, firewall, base packages
+│   ├── homelab-raid1/
+│   │   └── default.nix           # RAID 1 storage configuration
+│   ├── homelab-raid10/
+│   │   └── default.nix           # RAID 10 storage configuration
+│   ├── nanopi/
+│   │   └── default.nix           # nanopi-r5s development/test target
+│   └── iso/
+│       ├── default.nix           # bootable installer ISO
+│       ├── flake-customer.nix    # baked-in customer installer config
+│       └── disko/                # declarative disk partitioning for installers
+│           ├── raid1.nix
+│           ├── raid10.nix
+│           └── simple-raid10.nix
 ├── modules/
-│   ├── services/
-│   │   ├── caddy.nix
-│   │   ├── immich.nix
-│   │   ├── nextcloud.nix
-│   │   ├── jellyfin.nix
-│   │   ├── adguardhome.nix
-│   │   └── netbird.nix
-│   ├── base.nix                  # users, locale, SSH, firewall
-│   ├── desktop.nix               # GUI-specific: Niri/Hyprland, fonts, apps
-│   └── dev.nix                   # dev tools, shell config
+│   ├── base.nix                  # core module: NixOS basics
+│   └── services/                 # declarative services for homelab
+│       ├── apps.nix              # immich, nextcloud, adguard, netbird
+│       ├── auto-update.nix       # auto-rebuild from flake on schedule
+│       ├── networking.nix        # caddy reverse proxy, firewall
+│       └── utils/
+│           ├── adguard-filters.nix
+│           └── ports.nix
 ├── home/                         # Phase 4: Home Manager configs
 │   ├── common.nix
 │   ├── neovim.nix
@@ -105,51 +111,78 @@ nixos-config/
     └── nextcloud-adminpass.age
 ```
 
+**Key Changes:**
+- **Disko configs moved to `hosts/iso/disko/`** — Disk partitioning is only relevant during ISO installation. Each config is named after its use case (raid1, raid10, simple-raid10).
+- **Simplified hosts/** — Only actual deployment targets (homelab-raid1, homelab-raid10, nanopi, iso) plus common shared config.
+- **Services in `modules/services/`** — All service configurations stay in modules, imported by hosts that need them.
+
 **Starter `flake.nix`:**
 
 ```nix
 {
-  description = "NixOS homelab configuration";
+  description = "NixOS Homelab Flake - Reproducible multi-host configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    disko.url = "github:nix-community/disko/latest";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, agenix, nixos-hardware, disko, ... }@inputs:
+  outputs = { nixpkgs, disko, ... } @ inputs:
   let
-    mkHost = hostname: nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./hosts/${hostname}/default.nix
-        ./hosts/common/default.nix
-        agenix.nixosModules.default
-        disko.nixosModules.disko
-      ];
-    };
+    mkHost = { hostname, system, modules, description }:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [ disko.nixosModules.disko ] ++ modules;
+      };
   in {
     nixosConfigurations = {
-      homelab   = mkHost "homelab";
-      desktop   = mkHost "desktop";
-      laptop    = mkHost "laptop";
-      inspiron  = mkHost "inspiron2200";
+      nanopi = mkHost {
+        hostname = "nanopi";
+        system = "aarch64-linux";
+        description = "Nanopi R5S - Development/Test Target";
+        modules = [
+          ./hosts/nanopi/default.nix
+        ];
+      };
+
+      iso = mkHost {
+        hostname = "iso";
+        system = "x86_64-linux";
+        description = "NixOS Bootable Installer ISO";
+        modules = [
+          ./hosts/iso/default.nix
+        ];
+      };
+
+      homelab-raid1 = mkHost {
+        hostname = "homelab-raid1";
+        system = "x86_64-linux";
+        description = "Homelab Server - 2-Disk RAID1 Configuration";
+        modules = [
+          ./hosts/homelab-raid1/default.nix
+        ];
+      };
+
+      homelab-raid10 = mkHost {
+        hostname = "homelab-raid10";
+        system = "x86_64-linux";
+        description = "Homelab Server - 4-Disk RAID10 Configuration";
+        modules = [
+          ./hosts/homelab-raid10/default.nix
+        ];
+      };
     };
   };
 }
 ```
+
+**Host structure:**
+- **nanopi** — ARM-based target for dev/testing
+- **iso** — x86_64 bootable installer ISO (uses disko configs for partitioning)
+- **homelab-raid1** — x86_64 production server with RAID1 storage
+- **homelab-raid10** — x86_64 production server with RAID10 storage
 
 ---
 
@@ -610,8 +643,27 @@ nix run github:nix-community/nixos-anywhere -- \
 **disko** — declarative disk partitioning, used by nixos-anywhere during install:
 - GitHub: https://github.com/nix-community/disko
 
+In your project, disko configs are stored in `hosts/iso/disko/` and imported by host configurations that need them:
+
 ```nix
-# hosts/homelab/disk-config.nix
+# hosts/homelab-raid1/default.nix
+{ config, pkgs, lib, ... }:
+{
+  imports = [
+    ../common/default.nix
+    ../iso/disko/raid1.nix    # Import the RAID 1 disk config from ISO directory
+    ../../modules/services/auto-update.nix
+    ../../modules/services/networking.nix
+    ../../modules/services/apps.nix
+  ];
+  # ... rest of host config
+}
+```
+
+Example disko configuration:
+
+```nix
+# hosts/iso/disko/raid1.nix
 { ... }: {
   disko.devices = {
     disk = {

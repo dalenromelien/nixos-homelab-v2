@@ -2,7 +2,7 @@
 {
   imports = [
     ../common/default.nix
-    ../../modules/disko/raid1.nix
+    ../iso/disko/raid1.nix
     ../../modules/services/auto-update.nix
     ../../modules/services/networking.nix
     ../../modules/services/apps.nix
