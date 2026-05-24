@@ -64,38 +64,34 @@ ls -la /dev/disk/by-id/
 
 ### Update Disko Configuration
 
-You need to update the flake config with your actual disk IDs. Clone the repo to the ISO:
-
-```bash
-cd /tmp
-git clone https://github.com/dalenromelien/nixos-homelab-v2.git
-cd nixos-homelab-v2
-```
-
-Edit the appropriate disko config:
+The disko partitioning configurations are baked into the ISO for easy access. Edit the appropriate config for your setup:
 
 **For RAID1 (2-disk):**
 ```bash
-# Edit: modules/disko/raid1.nix
-# Replace these placeholders with your actual disk IDs:
+# View current configuration
+cat /etc/nixos/disko/raid1.nix
+
+# Edit to replace placeholders with your actual disk IDs:
 #   ata-CHANGE_ME_BOOT_SERIAL     → your 256GB SSD ID (e.g., ata-SAMSUNG_870_EVO_256GB_S123456789)
 #   ata-CHANGE_ME_RAID1_SERIAL    → your 1st 2TB HDD ID
 #   ata-CHANGE_ME_RAID2_SERIAL    → your 2nd 2TB HDD ID
 
-$EDITOR modules/disko/raid1.nix
+$EDITOR /etc/nixos/disko/raid1.nix
 ```
 
 **For RAID10 (4-disk):**
 ```bash
-# Edit: modules/disko/raid10.nix
-# Replace these placeholders with your actual disk IDs:
+# View current configuration
+cat /etc/nixos/disko/raid10.nix
+
+# Edit to replace placeholders with your actual disk IDs:
 #   ata-CHANGE_ME_BOOT_SERIAL     → your 256GB SSD ID
 #   ata-CHANGE_ME_RAID1_SERIAL    → your 1st 3TB HDD ID
 #   ata-CHANGE_ME_RAID2_SERIAL    → your 2nd 3TB HDD ID
 #   ata-CHANGE_ME_RAID3_SERIAL    → your 3rd 3TB HDD ID
 #   ata-CHANGE_ME_RAID4_SERIAL    → your 4th 3TB HDD ID
 
-$EDITOR modules/disko/raid10.nix
+$EDITOR /etc/nixos/disko/raid10.nix
 ```
 
 ### Example Edit
@@ -114,17 +110,18 @@ boot = {
   device = "/dev/disk/by-id/ata-SAMSUNG_870_EVO_256GB_S123456789";
 ```
 
-Do this for all `CHANGE_ME_*` placeholders.
+Do this for all `CHANGE_ME_*` placeholders. Save the file when complete.
 
 ## Step 5: Partition Disks with Disko
 
-Now run disko to partition the disks according to your configuration:
+Now run disko to partition the disks according to your edited configuration:
 
 ```bash
-cd /tmp/nixos-homelab-v2
-sudo disko -m disko -c flake.nix#homelab-raid1   # for RAID1
-# or
-sudo disko -m disko -c flake.nix#homelab-raid10  # for RAID10
+# For RAID1 configuration
+sudo disko -m disko -c /etc/nixos/disko/raid1.nix
+
+# or for RAID10 configuration
+sudo disko -m disko -c /etc/nixos/disko/raid10.nix
 ```
 
 **What disko does:**
@@ -133,7 +130,7 @@ sudo disko -m disko -c flake.nix#homelab-raid10  # for RAID10
 - Formats filesystems
 - Mounts at `/mnt` ready for NixOS installation
 
-⚠️ **This is destructive** — it will erase the selected disks. Verify disk IDs carefully before proceeding.
+⚠️ **This is destructive** — it will erase the selected disks. Verify disk IDs in the config file before proceeding.
 
 ## Step 6: Run NixOS Installer
 

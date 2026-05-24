@@ -14,4 +14,6 @@
 
   networking.hostName = "nanopi-r5s";
   networking.useDHCP = lib.mkDefault true;
+
+  boot.binfmt.emulatedSystems = ["x86_64-linux"];
 }

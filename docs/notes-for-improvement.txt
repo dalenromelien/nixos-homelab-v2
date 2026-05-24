@@ -1,0 +1,6 @@
+In the installation instructions I do not believe we need to pull the github repo on the fresh image install to modify the disko images right? Disko config is now a part of the manual installation process right?
+
+We should update that in the instructions. It should be baked into the ISO now.
+
+Does the flake need to specify hosts raid1 and raid10 considering now the disko configs are baked into the ISO images and only relevant for those ISO images?
+
