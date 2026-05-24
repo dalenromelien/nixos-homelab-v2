@@ -5,9 +5,6 @@ let
   ports = import ./utils/ports.nix;
 in
 {
-  
-  services.netbird.enable = true;
-
   services.immich = {
     enable = true;
     port = ports.immich;

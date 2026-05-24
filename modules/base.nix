@@ -12,6 +12,8 @@
     };
   };
 
+  services.netbird.enable = true;
+
   users.users.root.initialPassword = "nix";
 
   security.sudo.wheelNeedsPassword = false;
