@@ -20,6 +20,7 @@
     helix
     curl
     wget
+    git
   ];
 
   system.stateVersion = "25.11";
