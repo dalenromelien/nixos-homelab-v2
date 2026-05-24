@@ -1,10 +1,12 @@
 {
   disko.devices = {
     disk = {
-      # 256GB SSD - Boot drive only (no RAID)
-      ssd = {
+      # Boot drive (256GB SSD) - STABLE ID
+      # Find with: ls -la /dev/disk/by-id/ | grep -i ata
+      # Example: ata-SAMSUNG_870_EVO_256GB_S123456789
+      boot = {
         type = "disk";
-        device = "/dev/sda";
+        device = "/dev/disk/by-id/ata-CHANGE_ME_BOOT_SERIAL";
         content = {
           type = "gpt";
           partitions = {
@@ -34,10 +36,12 @@
         };
       };
 
-      # 3TB HDD 1 - Data RAID 10
-      one = {
+      # Data drive 1 (3TB HDD) - RAID 10
+      # Find with: ls -la /dev/disk/by-id/ | grep -i ata | grep -i 3TB
+      # Example: ata-SEAGATE_BARRACUDA_PRO_3TB_S987654321
+      raid-1 = {
         type = "disk";
-        device = "/dev/sdb";
+        device = "/dev/disk/by-id/ata-CHANGE_ME_RAID1_SERIAL";
         content = {
           type = "gpt";
           partitions = {
@@ -52,10 +56,10 @@
         };
       };
 
-      # 3TB HDD 2 - Data RAID 10
-      two = {
+      # Data drive 2 (3TB HDD) - RAID 10
+      raid-2 = {
         type = "disk";
-        device = "/dev/sdc";
+        device = "/dev/disk/by-id/ata-CHANGE_ME_RAID2_SERIAL";
         content = {
           type = "gpt";
           partitions = {
@@ -70,10 +74,10 @@
         };
       };
 
-      # 3TB HDD 3 - Data RAID 10
-      three = {
+      # Data drive 3 (3TB HDD) - RAID 10
+      raid-3 = {
         type = "disk";
-        device = "/dev/sdd";
+        device = "/dev/disk/by-id/ata-CHANGE_ME_RAID3_SERIAL";
         content = {
           type = "gpt";
           partitions = {
@@ -88,10 +92,10 @@
         };
       };
 
-      # 3TB HDD 4 - Data RAID 10
-      four = {
+      # Data drive 4 (3TB HDD) - RAID 10
+      raid-4 = {
         type = "disk";
-        device = "/dev/sde";
+        device = "/dev/disk/by-id/ata-CHANGE_ME_RAID4_SERIAL";
         content = {
           type = "gpt";
           partitions = {

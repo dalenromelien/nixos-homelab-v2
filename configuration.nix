@@ -2,6 +2,8 @@
 
 {
     imports = [
+      ./services/disko.nix
+      ./services/auto-update.nix
       ./services/networking.nix
       ./services/apps.nix
     ];
@@ -11,6 +13,13 @@
     fileSystems."/" = {
     	device = "/dev/disk/by-label/NIXOS";
 	    fsType = "ext4";
+    };
+
+    # Mount RAID 10 array for app data
+    fileSystems."/data" = {
+      device = "/dev/md/raid10";
+      fsType = "ext4";
+      options = [ "defaults" "nofail" ];
     };
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -23,12 +32,6 @@
         };
     };
 
-    users.users.dalen = {
-    	isNormalUser = true;
-    	extraGroups = ["wheel"];
-     	initialPassword = "nix";
-    };
-
     users.users.root.initialPassword = "nix";
 
     security.sudo.wheelNeedsPassword = false;
@@ -37,7 +40,6 @@
     	helix
      	curl
     	wget
-    	git
     ];
     
     boot.loader.grub.enable = false;
