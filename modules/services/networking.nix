@@ -28,7 +28,7 @@ in
     '';
   };
 
-  services.adguard.settings.filtering.rewrites = [
+  services.adguardhome.settings.filtering.rewrites = [
     { domain = "immich.home"; answer = serverIP; }
     { domain = "adguard.home"; answer = serverIP; }
     { domain = "nextcloud.home"; answer = serverIP; }

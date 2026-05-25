@@ -44,11 +44,11 @@ sudo eject /dev/sdX
 
 ## Step 4: Identify Disks and Configure Disko
 
-Once booted from ISO, you'll have a bash shell. Before running the installer, you need to identify your hardware disks and update the disko configuration with stable disk IDs.
+Once booted from ISO, you'll have a bash shell with `disko`, `git`, and `helix` pre-installed. The disko configuration templates are available in `/root/` as mutable, editable files.
 
 **For detailed disk identification instructions, see [DISK_IDENTIFICATION.md](DISK_IDENTIFICATION.md)**
 
-### Quick Summary
+### Step 4a: List Your Disks
 
 ```bash
 # List all disks with stable identifiers
@@ -62,41 +62,37 @@ ls -la /dev/disk/by-id/
 
 **Important:** Use these `/dev/disk/by-id/` names, not `/dev/sdX` — they're stable across reboots and hardware changes.
 
-### Update Disko Configuration
+### Step 4b: Edit Disko Configuration
 
-The disko partitioning configurations are baked into the ISO for easy access. Edit the appropriate config for your setup:
+Edit the appropriate disko config for your hardware setup. The templates are available in `/etc/nixos/`:
 
 **For RAID1 (2-disk):**
 ```bash
-# View current configuration
-cat /etc/nixos/disko/raid1.nix
-
-# Edit to replace placeholders with your actual disk IDs:
+# Edit: /etc/nixos/disko-raid1.nix
+# Replace these placeholders with your actual disk IDs from Step 4a:
 #   ata-CHANGE_ME_BOOT_SERIAL     → your 256GB SSD ID (e.g., ata-SAMSUNG_870_EVO_256GB_S123456789)
 #   ata-CHANGE_ME_RAID1_SERIAL    → your 1st 2TB HDD ID
 #   ata-CHANGE_ME_RAID2_SERIAL    → your 2nd 2TB HDD ID
 
-$EDITOR /etc/nixos/disko/raid1.nix
+helix /etc/nixos/disko-raid1.nix
 ```
 
 **For RAID10 (4-disk):**
 ```bash
-# View current configuration
-cat /etc/nixos/disko/raid10.nix
-
-# Edit to replace placeholders with your actual disk IDs:
+# Edit: /etc/nixos/disko-raid10.nix
+# Replace these placeholders with your actual disk IDs:
 #   ata-CHANGE_ME_BOOT_SERIAL     → your 256GB SSD ID
 #   ata-CHANGE_ME_RAID1_SERIAL    → your 1st 3TB HDD ID
 #   ata-CHANGE_ME_RAID2_SERIAL    → your 2nd 3TB HDD ID
 #   ata-CHANGE_ME_RAID3_SERIAL    → your 3rd 3TB HDD ID
 #   ata-CHANGE_ME_RAID4_SERIAL    → your 4th 3TB HDD ID
 
-$EDITOR /etc/nixos/disko/raid10.nix
+helix /etc/nixos/disko-raid10.nix
 ```
 
 ### Example Edit
 
-Original (raid10.nix):
+Original (disko-raid10.nix):
 ```nix
 boot = {
   type = "disk";
@@ -118,10 +114,10 @@ Now run disko to partition the disks according to your edited configuration:
 
 ```bash
 # For RAID1 configuration
-sudo disko -m disko -c /etc/nixos/disko/raid1.nix
+sudo disko -m disko -c /etc/nixos/disko-raid1.nix
 
 # or for RAID10 configuration
-sudo disko -m disko -c /etc/nixos/disko/raid10.nix
+sudo disko -m disko -c /etc/nixos/disko-raid10.nix
 ```
 
 **What disko does:**
@@ -134,33 +130,31 @@ sudo disko -m disko -c /etc/nixos/disko/raid10.nix
 
 ## Step 6: Run NixOS Installer
 
-Once disko completes successfully, install NixOS to the prepared disks:
-
-```bash
-cd /tmp/nixos-homelab-v2
-sudo nixos-install --flake .#homelab-raid1    # if you chose RAID1
-# or
-sudo nixos-install --flake .#homelab-raid10   # if you chose RAID10
-```
-
-**What nixos-install does:**
-- Downloads and builds NixOS with your homelab services (Immich, Nextcloud, AdGuard, etc.)
-- Sets up auto-update service (runs Sunday 3am weekly)
-- Installs GRUB bootloader
-- Generates `/etc/nixos/hardware-configuration.nix` for your specific hardware
-- Asks for root password during installation
+Once disko completes successfully, install NixOS to the prepared disks. **Important:** The flake target you choose MUST match the disko config you used:
 
 ### Option A: RAID1 (2-Disk Setup)
 
 ```bash
-sudo nixos-install --flake github:dalenromelien/nixos-homelab-v2#homelab-raid1
+sudo nixos-install --flake /etc/nixos#homelab-raid1
 ```
+
+Use this if you edited and ran `/etc/nixos/disko-raid1.nix`
 
 ### Option B: RAID10 (4-Disk Setup)
 
 ```bash
-sudo nixos-install --flake github:dalenromelien/nixos-homelab-v2#homelab-raid10
+sudo nixos-install --flake /etc/nixos#homelab-raid10
 ```
+
+Use this if you edited and ran `/etc/nixos/disko-raid10.nix`
+
+**What nixos-install does:**
+- Downloads and builds NixOS with your homelab services (Immich, Nextcloud, AdGuard, Netbird, etc.)
+- Sets up auto-update service (runs Sunday 3am weekly)
+- Integrates your chosen RAID configuration
+- Installs GRUB bootloader
+- Generates `/etc/nixos/hardware-configuration.nix` for your specific hardware
+- Asks for root password during installation
 
 ## Step 7: Reboot
 
@@ -168,7 +162,7 @@ sudo nixos-install --flake github:dalenromelien/nixos-homelab-v2#homelab-raid10
 sudo reboot
 ```
 
-Remove USB drive when prompted. The machine will boot into your new NixOS homelab.
+Remove USB drive when prompted. The machine will boot into your new NixOS homelab with all services running.
 
 ## Step 8: Verify Installation
 
@@ -190,7 +184,27 @@ systemctl status caddy
 # nextcloud.home
 ```
 
-## Step 9: Test Auto-Update (Optional)
+## Step 9: Optional Customization
+
+Your homelab comes with sensible defaults tracked from the GitHub repository. If you want to customize it locally (disable auto-updates, add packages, change firewall rules, etc.), create a `/etc/nixos/configuration.nix` file.
+
+A template is available at `/etc/nixos/configuration.nix.template` on the ISO. After installation, copy it to the installed system:
+
+```bash
+# On the installed system
+sudo cp /etc/nixos/configuration.nix.template /etc/nixos/configuration.nix
+sudo helix /etc/nixos/configuration.nix
+
+# Apply your customizations
+sudo nixos-rebuild switch
+
+# Important: If you add a configuration.nix, auto-updates will stop
+# You'll need to run: sudo nixos-rebuild switch --flake /etc/nixos#homelab-raid1
+```
+
+**Warning:** If you add a `/etc/nixos/configuration.nix`, auto-updates will no longer run automatically. You'll need to manually rebuild after updates.
+
+## Step 10: Test Auto-Update (Optional)
 
 To test auto-update without waiting a week:
 
