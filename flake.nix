@@ -35,24 +35,6 @@
           ./hosts/iso/default.nix
         ];
       };
-
-      homelab-raid1 = mkHost {
-        hostname = "homelab-raid1";
-        system = "x86_64-linux";
-        description = "Homelab Server - 2-Disk RAID1 Configuration";
-        modules = [
-          ./hosts/homelab-raid1/default.nix
-        ];
-      };
-
-      homelab-raid10 = mkHost {
-        hostname = "homelab-raid10";
-        system = "x86_64-linux";
-        description = "Homelab Server - 4-Disk RAID10 Configuration";
-        modules = [
-          ./hosts/homelab-raid10/default.nix
-        ];
-      };
     };
   };
 }
