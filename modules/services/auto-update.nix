@@ -40,6 +40,9 @@ in
 
     nix.settings.auto-optimise-store = true;
 
-    boot.loader.systemd-boot.configurationLimit = 5;
+    boot.loader.systemd-boot = {
+      enable = true;
+      configurationLimit = 5;
+    };
   };
 }

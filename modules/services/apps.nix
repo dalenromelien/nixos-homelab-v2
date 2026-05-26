@@ -18,7 +18,6 @@ in
     host = "0.0.0.0";
     port = ports.adguard;
     mutableSettings = true;
-    settingsPath = "/data/adguard";
     settings = {
       dhcp.enabled = true;
 
@@ -58,10 +57,12 @@ in
   services.nextcloud = {
     enable = true;
     hostName = "nextcloud.home";
-    dataDir = "/data/nextcloud";
+    datadir = "/data/nextcloud";
     
-    config.adminpassFile = "/etc/nextcloud-admin-pass";
-    config.dbtype = "pgsql";
+    config = {
+      adminpassFile = "/etc/nextcloud-admin-pass";
+      dbtype = "pgsql";
+    }
 
     extraApps = {
       inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
@@ -74,5 +75,7 @@ in
       mail_smtpmode = "sendmail";
       mail_sendmailmode = "pipe";
     };
+
+    autoUpdateApps.enable = true;
   };
 }
