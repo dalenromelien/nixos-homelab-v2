@@ -2,6 +2,7 @@
 {
   imports = [
     ../common/default.nix
+    ../common/services.nix
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 

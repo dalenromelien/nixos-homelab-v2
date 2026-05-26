@@ -27,6 +27,15 @@
         ];
       };
 
+      home-server = mkHost {
+        hostname = "home-server";
+        system = "x86_64-linux";
+        description = "Home Server - Central homelab service hub";
+        modules = [
+          ./hosts/home-server/default.nix
+        ];
+      };
+
       iso = mkHost {
         hostname = "iso";
         system = "x86_64-linux";

@@ -18,7 +18,7 @@ in
       script = ''
         cd /etc/nixos
         nix flake update
-        nixos-rebuild switch --flake .
+        nixos-rebuild switch --flake .#home-server
       '';
     };
 
