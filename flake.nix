@@ -35,15 +35,6 @@
           ./hosts/home-server/default.nix
         ];
       };
-
-      iso = mkHost {
-        hostname = "iso";
-        system = "x86_64-linux";
-        description = "NixOS Bootable Installer ISO";
-        modules = [
-          ./hosts/iso/default.nix
-        ];
-      };
     };
   };
 }

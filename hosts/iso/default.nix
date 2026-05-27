@@ -13,13 +13,4 @@
     git
     helix
   ];
-
-  # Add mutable template files to /etc/nixos/ on the ISO
-  # These are regular editable files (not Nix store symlinks)
-  isoImage.contents = [
-    { source = ./disko/raid1.nix; target = "/etc/nixos/disko-raid1.nix"; }
-    { source = ./disko/raid10.nix; target = "/etc/nixos/disko-raid10.nix"; }
-    { source = ./flake-customer.nix; target = "/etc/nixos/flake.nix"; }
-    { source = ../../configuration.nix.template; target = "/etc/nixos/configuration.nix.template"; }
-  ];
 }
