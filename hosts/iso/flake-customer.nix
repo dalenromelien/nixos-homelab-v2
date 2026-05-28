@@ -1,5 +1,5 @@
 {
-  description = "NixOS Homelab Flake - Reproducible multi-host configuration";
+  description = "NixOS Homelab Flake - Customer Deployment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -18,30 +18,12 @@
   in
   {
     nixosConfigurations = {
-      nanopi = mkHost {
-        hostname = "nanopi";
-        system = "aarch64-linux";
-        description = "Nanopi R5S - Development/Test Target";
-        modules = [
-          ./hosts/nanopi/default.nix
-        ];
-      };
-
       home-server = mkHost {
         hostname = "home-server";
         system = "x86_64-linux";
         description = "Home Server - Central homelab service hub";
         modules = [
           ./hosts/home-server/default.nix
-        ];
-      };
-
-      iso = mkHost {
-        hostname = "iso";
-        system = "x86_64-linux";
-        description = "NixOS Bootable Installer ISO";
-        modules = [
-          ./hosts/iso/default.nix
         ];
       };
     };
