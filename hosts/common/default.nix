@@ -25,6 +25,7 @@
     curl
     wget
     git
+    disko
   ];
 
   system.stateVersion = "25.11";
