@@ -88,7 +88,6 @@ nixos-config/
 │   │   └── default.nix           # nanopi-r5s development/test target
 │   └── iso/
 │       ├── default.nix           # bootable installer ISO
-│       ├── flake-customer.nix    # baked-in customer installer config
 │       └── disko/                # declarative disk partitioning for installers
 │           ├── raid1.nix
 │           ├── raid10.nix

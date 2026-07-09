@@ -16,7 +16,6 @@ nixos-homelab-v2/
 │   │   └── default.nix                 # ARM dev/test target (aarch64-linux)
 │   ├── iso/
 │   │   ├── default.nix                 # Bootable installer ISO
-│   │   └── flake-customer.nix          # Flake baked into ISO
 │   ├── homelab-raid1/
 │   │   └── default.nix                 # 2-disk RAID1 configuration
 │   └── homelab-raid10/
