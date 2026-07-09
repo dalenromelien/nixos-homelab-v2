@@ -1,20 +1,21 @@
+{ pkgs, ... }:
+
 {
-  # Minimal local configuration file for customer repo.
-  # This is an example; when using the wrapper flake that delegates to
-  # the upstream homelab flake, the upstream configuration is used.
-  # If you prefer to use local overrides, replace the flake outputs to
-  # include this module in the modules list.
+  # Local configuration overrides go here.
+  # This module is merged on top of the upstream homelab configuration,
+  # so any settings defined here will override upstream defaults.
 
-  imports = [];
-
+  # Example: customize the hostname
   networking.hostName = "home-server";
 
-  # Enable SSH so you can log in after install
-  services.openssh.enable = true;
-  users.users.root.initialPassword = "nix";
+  # Example: add local packages that override upstream
+  environment.systemPackages = with pkgs; [
+    vim
+    htop
+  ];
 
-  # Basic packages available on the installer/remnant system
-  environment.systemPackages = with pkgs; [ vim git curl ];
+  # Example: disable a service that's enabled upstream (if needed)
+  # services.immich.enable = false;
 
-  system.stateVersion = "25.11";
+  # Keep all other upstream services and settings as-is
 }

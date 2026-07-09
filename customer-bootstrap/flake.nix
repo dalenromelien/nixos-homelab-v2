@@ -1,16 +1,23 @@
 {
-  description = "Customer bootstrap flake — thin wrapper delegating to upstream homelab flake.";
+  description = "Customer bootstrap flake — delegates to upstream homelab flake with local configuration override.";
 
   inputs = {
-    # Change this to your upstream repo if different
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     homelab.url = "github:dalenromelien/nixos-homelab-v2";
+    homelab.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { homelab, ... }:
+  outputs = { nixpkgs, homelab, ... } @ inputs:
     {
-      # Re-export the upstream nixosConfigurations so installers can run:
-      #   sudo nixos-install --flake .#home-server
-      # or choose homelab-raid1 / homelab-raid10 if you prefer.
-      nixosConfigurations = homelab.nixosConfigurations;
+      nixosConfigurations = {
+        # Wrap the upstream home-server to include local configuration.nix
+        home-server = homelab.nixosConfigurations.home-server.extendModules {
+          modules = [ ./configuration.nix ];
+        };
+
+        # Re-export other upstream configurations if you prefer them
+        nanopi = homelab.nixosConfigurations.nanopi;
+        iso = homelab.nixosConfigurations.iso;
+      };
     };
 }
