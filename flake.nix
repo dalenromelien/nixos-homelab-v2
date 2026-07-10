@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    inputs.nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
   };
 
   outputs = { nixpkgs, disko, ... } @ inputs:
@@ -32,7 +33,10 @@
         system = "x86_64-linux";
         description = "Home Server - Central homelab service hub";
         modules = [
+          disko.nixosModules.disko
           ./hosts/home-server/default.nix
+          ./hardware-configuration.nix
+          { hardware.facter.reportPath = ./facter.json; }
         ];
       };
 
