@@ -7,7 +7,7 @@ in
 {
   services.immich = {
     enable = true;
-    port = ports.immich;
+    port = ports.immichServer;
     host = "0.0.0.0";
     openFirewall = true;
     mediaLocation = "/data/immich";
@@ -19,7 +19,16 @@ in
     port = ports.adguard;
     mutableSettings = true;
     settings = {
-      dhcp.enabled = true;
+      dhcp = {
+        enabled = true;
+        interface = [ "eno1" ];
+        gateway = "192.168.1.1";
+        start = "192.168.1.101";
+        end = "192.168.1.200";
+        leaseDuration = "24h";
+        domainName = "home";
+        dns = [ "192.168.1.100" "1.1.1.1" ];
+      };
 
       dns = {
         upstream_dns = [

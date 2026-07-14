@@ -12,8 +12,8 @@ in
   networking.firewall.allowedTCPPorts = [22 80 443];
 
   services.caddy.virtualHosts = {
-    "immich.home".extraConfig = ''
-      reverse_proxy http://127.0.0.1:${toString ports.immich}
+    "immich-server.home".extraConfig = ''
+      reverse_proxy http://127.0.0.1:${toString ports.immichServer}
       tls internal
     '';
 
@@ -26,10 +26,16 @@ in
       reverse_proxy http://127.0.0.1:${toString ports.nextcloud}
       tls internal
     '';
+
+    "immich-ui.home".extraConfig = ''
+      reverse_proxy http://127.0.0.1:${toString ports.immichUi}
+      tls internal
+    '';
   };
 
   services.adguardhome.settings.filtering.rewrites = [
-    { domain = "immich.home"; answer = serverIP; }
+    { domain = "immich-server.home"; answer = serverIP; }
+    { domain = "immich-ui.home"; answer = serverIP; }
     { domain = "adguard.home"; answer = serverIP; }
     { domain = "nextcloud.home"; answer = serverIP; }
   ];
