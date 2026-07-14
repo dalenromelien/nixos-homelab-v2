@@ -5,6 +5,11 @@ in
 {
   options.homelab.services = {
     autoUpdate.enable = lib.mkEnableOption "automatic NixOS updates from flake";
+    autoUpdate.remoteFlake = lib.mkOption {
+      type = lib.types.str;
+      default = "github:dalenromelien/nixos-homelab-v2";
+      description = "Remote flake URL to use for auto-update rebuilds. By default it points at the upstream repo.";
+    };
   };
 
   config = lib.mkIf cfg.autoUpdate.enable {
@@ -17,8 +22,12 @@ in
       path = [ pkgs.nix ];
       script = ''
         cd /etc/nixos
-        nix flake update
-        nixos-rebuild switch --flake .#home-server
+        if [ -n "${cfg.autoUpdate.remoteFlake}" ]; then
+          nixos-rebuild switch --flake ${cfg.autoUpdate.remoteFlake}#home-server
+        else
+          nix flake update
+          nixos-rebuild switch --flake .#home-server
+        fi
       '';
     };
 
