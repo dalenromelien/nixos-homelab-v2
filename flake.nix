@@ -10,6 +10,8 @@
 
   outputs = { nixpkgs, disko, ... } @ inputs:
   let
+    lib = nixpkgs.lib;
+    hasFacterJson = builtins.pathExists ./facter.json;
     mkHost = { hostname, system, modules, description }:
       nixpkgs.lib.nixosSystem {
         inherit system;
@@ -32,10 +34,12 @@
         hostname = "home-server";
         system = "x86_64-linux";
         description = "Home Server - Central homelab service hub";
-        modules = [
-          disko.nixosModules.disko
-          ./hosts/home-server/default.nix
-          { hardware.facter.reportPath = ./facter.json; }
+        modules = lib.concatLists [
+          [
+            disko.nixosModules.disko
+            ./hosts/home-server/default.nix
+          ]
+          (if hasFacterJson then [ { hardware.facter.reportPath = ./facter.json; } ] else [])
         ];
       };
 
