@@ -35,7 +35,6 @@
         modules = [
           disko.nixosModules.disko
           ./hosts/home-server/default.nix
-          ./hardware-configuration.nix
           { hardware.facter.reportPath = ./facter.json; }
         ];
       };
