@@ -1,6 +1,5 @@
 {
-  immichServer = 2283;
-  immichUi = 3001;
+  immich = 2283;
   adguard = 3000;
   nextcloud = 8080;
 }
