@@ -12,7 +12,6 @@ in
 
   # need to disable port 53 services to make room for adguard
   services.dnsmasq.enable = false;
-  services.systemd.resolved.enable = false;
 
   networking.hostName = "nixos-homelab";
   networking.useDHCP = lib.mkDefault true;
