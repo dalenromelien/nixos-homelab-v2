@@ -90,4 +90,10 @@ in
     https = true;
     autoUpdateApps.enable = true;
   };
+
+  # Ensure PHP-FPM nextcloud pool runs as the `caddy` user (we use Caddy, not nginx)
+  services.phpfpm.pools.nextcloud = {
+    user = "caddy";
+    group = "caddy";
+  };
 }
