@@ -78,6 +78,8 @@ in
 
     settings = {
       trusted_domains = [ "nextcloud.home" ];
+      mail_smtpmode = "sendmail";
+      mail_sendmailmode = "pipe";
     };
 
     extraApps = {
@@ -86,12 +88,6 @@ in
 
     extraAppsEnable = true;
     https = true;
-
-    extraOptions = {
-      mail_smtpmode = "sendmail";
-      mail_sendmailmode = "pipe";
-    };
-
     autoUpdateApps.enable = true;
   };
 }
