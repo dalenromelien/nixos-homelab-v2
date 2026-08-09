@@ -10,9 +10,6 @@ in
   # need to disable nginx to let caddy run
   services.nginx.enable = false;
 
-  # need to disable port 53 services to make room for adguard
-  services.dnsmasq.enable = false;
-
   networking.hostName = "nixos-homelab";
   networking.useDHCP = lib.mkDefault true;
   networking.firewall.allowedTCPPorts = [22 53 80 443];

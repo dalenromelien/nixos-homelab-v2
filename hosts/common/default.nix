@@ -26,6 +26,7 @@
     wget
     git
     disko
+    nssTools
   ];
 
   system.stateVersion = "26.05";
