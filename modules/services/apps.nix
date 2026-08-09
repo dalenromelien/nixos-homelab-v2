@@ -21,12 +21,12 @@ in
     settings = {
       dhcp = {
         enabled = true;
-        interface_name = [ "eno1" ];
+        interface_name = "eno1";
         dhcpv4 = {
           gateway_ip = "192.168.1.1";
           range_start = "192.168.1.101";
           range_end = "192.168.1.200";
-          lease_duration = "24h";
+          lease_duration = 86400;
         };
         local_domain_name = "home";
       };
