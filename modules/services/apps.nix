@@ -8,7 +8,7 @@ in
   services.immich = {
     enable = true;
     port = ports.immich;
-    host = "127.0.0.1";
+    host = "0.0.0.0";
     mediaLocation = "/data/immich";
     environment.IMMICH_LOG_LEVEL = "warn";
   };
