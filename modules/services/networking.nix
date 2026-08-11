@@ -12,7 +12,7 @@ in
 
   networking.hostName = "nixos-homelab";
   networking.useDHCP = lib.mkDefault true;
-  networking.firewall.allowedTCPPorts = [22 53 80 443 ${ports.immich}];
+  networking.firewall.allowedTCPPorts = [22 53 80 443];
   networking.firewall.allowedUDPPorts = [53];
 
   services.caddy.virtualHosts = {
