@@ -24,9 +24,11 @@ in
         interface_name = "eno1";
         dhcpv4 = {
           gateway_ip = "192.168.1.1";
+          subnet_mask = "255.255.255.0";
           range_start = "192.168.1.101";
           range_end = "192.168.1.200";
           lease_duration = 86400;
+          icmp_timeout_msec = 0;
         };
         local_domain_name = "home";
       };
