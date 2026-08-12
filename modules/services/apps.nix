@@ -5,17 +5,6 @@ let
   ports = import ./utils/ports.nix;
 in
 {
-  users.users.immich.extraGroups = ["storage"];
-  users.users.nextcloud.extraGroups = ["storage"];
-
-  users.users.adguardhome = {
-    isSystemUser = true;
-    group = "adguardhome";
-    extraGroups = [ "storage" ];
-  };
-
-  users.groups.adguardhome = {};
-
   services.immich = {
     enable = true;
     port = ports.immich;

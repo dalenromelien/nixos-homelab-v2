@@ -12,9 +12,15 @@
     };
   };
 
+   # Shared group just for "can create things in /data"
+  users.groups.storage = {};
+
+  users.users.immich.extraGroups = [ "storage" ];
+  # users.users.nextcloud.extraGroups = [ "storage" ];
+  # users.users.adguardhome.extraGroups = [ "storage" ];
+
   systemd.tmpfiles.rules = [
-    # d  path       mode  user  group    age
-    "d  /data       2775  root  storage  -"
+    "d /data 1775 root storage - -"
   ];
 
   boot.loader.grub.enable = false;
