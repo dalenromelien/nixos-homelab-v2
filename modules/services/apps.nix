@@ -6,9 +6,14 @@ let
 in
 {
   users.users.immich.extraGroups = ["storage"];
-  users.users.adguardhome.extraGroups = ["storage"];
   users.users.nextcloud.extraGroups = ["storage"];
-  
+
+  users.users.adguardhome = {
+    isSystemUser = true;
+    group = "adguardhome";
+    extraGroups = [ "storage" ];
+  };
+
   services.immich = {
     enable = true;
     port = ports.immich;
