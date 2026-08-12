@@ -14,6 +14,8 @@ in
     extraGroups = [ "storage" ];
   };
 
+  users.groups.adguardhome = {};
+
   services.immich = {
     enable = true;
     port = ports.immich;
