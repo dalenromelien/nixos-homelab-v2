@@ -12,6 +12,11 @@
     };
   };
 
+  systemd.tmpfiles.rules = [
+    # d  path       mode  user  group    age
+    "d  /data       2775  root  storage  -"
+  ];
+
   boot.loader.grub.enable = false;
 
   services.netbird.enable = true;
