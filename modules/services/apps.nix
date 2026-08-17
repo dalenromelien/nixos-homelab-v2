@@ -89,7 +89,6 @@ in
     };
 
     extraAppsEnable = true;
-    https = true;
     autoUpdateApps.enable = true;
   };
 }
