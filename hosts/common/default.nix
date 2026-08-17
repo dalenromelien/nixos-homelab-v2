@@ -31,6 +31,13 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:dalenromelien/nixos-homelab-v2#home-server";
+    dates = "daily"; # or any systemd calendar spec
+    randomizedDelaySec = "45min";
+  };
+
   environment.systemPackages = with pkgs; [
     helix
     curl
