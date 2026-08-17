@@ -89,6 +89,18 @@ in
     };
 
     extraAppsEnable = true;
+    https = true;
     autoUpdateApps.enable = true;
+  };
+
+  # phpfpm for nextcloud uses nginx by default which is not configured, so user never generated
+  # we use this config to switch its user to one that exists since we are using Caddy.
+  services.phpfpm.pools.nextcloud = {
+    user = "caddy";
+    group = "caddy";
+    settings = {
+      "listen.owner" = "caddy";
+      "listen.group" = "caddy";
+    };
   };
 }

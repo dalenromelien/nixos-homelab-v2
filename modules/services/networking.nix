@@ -8,7 +8,7 @@ in
   services.caddy.enable = true;
 
   # need to disable nginx to let caddy run
-  # services.nginx.enable = false;
+  services.nginx.enable = false;
 
   networking.hostName = "nixos-homelab";
   networking.useDHCP = lib.mkDefault true;
