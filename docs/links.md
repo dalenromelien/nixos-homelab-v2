@@ -19,3 +19,9 @@ Nextcloud NixOS Search Options, Settings: https://search.nixos.org/options?chann
 Caddy NixOS Search Options: https://search.nixos.org/options?channel=26.05&query=services.caddy&type=options
 
 Caddy NixOS Wiki Page: https://nixos.wiki/wiki/Caddy
+
+Sops-Nix docs: https://github.com/Mic92/sops-nix
+
+Nixflix docs: https://kiriwalawren.github.io/nixflix/examples/basic-setup/#configuration
+
+Nixflix getting started: https://kiriwalawren.github.io/nixflix/getting-started/

@@ -6,9 +6,13 @@
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    nixflix.url = "github:kiriwalawren/nixflix";
+    nixflix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, disko, ... } @ inputs:
+  outputs = { nixpkgs, disko, sops-nix, nixflix, ... } @ inputs:
   let
     lib = nixpkgs.lib;
     hasFacterJson = builtins.pathExists ./facter.json;
@@ -16,7 +20,10 @@
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
-        modules = [ disko.nixosModules.disko ] ++ modules;
+        modules = [
+          disko.nixosModules.disko
+          sops-nix.nixosModules.sops
+        ] ++ modules;
       };
   in
   {
