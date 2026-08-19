@@ -66,10 +66,10 @@
       };
     };
 
-    # seerr = {
-    #   enable = true;
-    #   apiKey._secret = config.sops.secrets."seerr/api_key".path;
-    # };
+    seerr = {
+      enable = true;
+      apiKey._secret = config.sops.secrets."seerr/api_key".path;
+    };
   };
 
   sops.secrets = {
@@ -87,6 +87,6 @@
     # "sabnzbd/password" = {};
     "jellyfin/admin_password" = {};
     "jellyfin/api_key" = {};
-    # "seerr/api_key" = {};
+    "seerr/api_key" = {};
   };
 }
