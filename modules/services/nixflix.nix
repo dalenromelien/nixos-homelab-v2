@@ -86,6 +86,7 @@
     "sabnzbd/username" = {};
     "sabnzbd/password" = {};
     "jellyfin/admin_password" = {};
+    "jellyfin/api_key" = {};
     "seerr/api_key" = {};
   };
 }
