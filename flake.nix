@@ -46,6 +46,11 @@
             disko.nixosModules.disko
             ./hosts/home-server/default.nix
             nixflix.nixosModules.default
+            {
+              nixpkgs.overlays = [
+                nixflix.overlays.default   # <-- this is what's likely missing
+              ];
+            }
           ]
           (if hasFacterJson then [ { hardware.facter.reportPath = ./facter.json; } ] else [])
         ];
