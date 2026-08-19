@@ -9,14 +9,24 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  sops = {
-    defaultSopsFile = ../../secrets/secrets.yaml;
-    defaultSopsFormat = "yaml";
-    age.keyFile = "/root/.config/sops/age/keys.txt";
+  # auto pull from my flake everyday in event of new releases
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:dalenromelien/nixos-homelab-v2#home-server";
+    dates = "daily"; # or any systemd calendar spec
+    randomizedDelaySec = "45min";
   };
 
-  environment.systemPackages = with pkgs; [
-    age
-    sops
+   # Shared group just for "can create things in /data"
+  users.groups.storage = {};
+
+  users.users.immich.extraGroups = [ "storage" ];
+  # users.users.nextcloud.extraGroups = [ "storage" ];
+  # users.users.adguardhome.extraGroups = [ "storage" ];
+
+  systemd.tmpfiles.rules = [
+    "d /data 1775 root storage - -"
   ];
+
+  sops.age.keyFile = "/root/.config/sops/age/keys.txt";
 }
