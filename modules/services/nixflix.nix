@@ -66,10 +66,10 @@
       };
     };
 
-    seerr = {
-      enable = true;
-      apiKey._secret = config.sops.secrets."seerr/api_key".path;
-    };
+    # seerr = {
+    #   enable = true;
+    #   apiKey._secret = config.sops.secrets."seerr/api_key".path;
+    # };
   };
 
   sops.secrets = {
