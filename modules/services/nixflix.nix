@@ -59,6 +59,7 @@
 
     jellyfin = {
       enable = true;
+      apiKey._secret = config.sops.secrets."jellyfin/api_key".path;
       users.admin = {
         policy.isAdministrator = true;
         password._secret = config.sops.secrets."jellyfin/admin_password".path;
