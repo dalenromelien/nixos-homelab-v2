@@ -81,12 +81,12 @@
     "lidarr/password" = {};
     "prowlarr/api_key" = {};
     "prowlarr/password" = {};
-    "sabnzbd/api_key" = {};
-    "sabnzbd/nzb_key" = {};
-    "sabnzbd/username" = {};
-    "sabnzbd/password" = {};
+    # "sabnzbd/api_key" = {};
+    # "sabnzbd/nzb_key" = {};
+    # "sabnzbd/username" = {};
+    # "sabnzbd/password" = {};
     "jellyfin/admin_password" = {};
     "jellyfin/api_key" = {};
-    "seerr/api_key" = {};
+    # "seerr/api_key" = {};
   };
 }
