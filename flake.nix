@@ -45,6 +45,7 @@
           [
             disko.nixosModules.disko
             ./hosts/home-server/default.nix
+            nixflix.nixosModules.default
           ]
           (if hasFacterJson then [ { hardware.facter.reportPath = ./facter.json; } ] else [])
         ];
