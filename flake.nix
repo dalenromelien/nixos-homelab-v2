@@ -2,14 +2,26 @@
   description = "NixOS Homelab Flake - Reproducible multi-host configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    disko.url = "github:nix-community/disko/latest";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    nixflix.url = "github:kiriwalawren/nixflix";
-    nixflix.inputs.nixpkgs.follows = "nixpkgs";
+
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixflix = {
+      url = "github:kiriwalawren/nixflix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
   };
 
   outputs = { nixpkgs, disko, sops-nix, nixflix, ... } @ inputs:
@@ -46,11 +58,6 @@
             disko.nixosModules.disko
             ./hosts/home-server/default.nix
             nixflix.nixosModules.default
-            {
-              nixpkgs.overlays = [
-                nixflix.overlays.default   # <-- this is what's likely missing
-              ];
-            }
           ]
           (if hasFacterJson then [ { hardware.facter.reportPath = ./facter.json; } ] else [])
         ];
