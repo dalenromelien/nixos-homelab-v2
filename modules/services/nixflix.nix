@@ -10,7 +10,7 @@
     stateDir = "/data/.state";
     mediaUsers = [ "root" ];
 
-    nginx.enable = true;
+    caddy.enable = true;
     postgres.enable = true;
 
     sonarr = {
