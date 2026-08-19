@@ -45,17 +45,17 @@
       };
     };
 
-    sabnzbd = {
-      enable = true;
-      settings = {
-        misc = {
-          api_key._secret = config.sops.secrets."sabnzbd/api_key".path;
-          nzb_key._secret = config.sops.secrets."sabnzbd/nzb_key".path;
-          username._secret = config.sops.secrets."sabnzbd/username".path;
-          password._secret = config.sops.secrets."sabnzbd/password".path;
-        };
-      };
-    };
+    # sabnzbd = {
+    #   enable = true;
+    #   settings = {
+    #     misc = {
+    #       api_key._secret = config.sops.secrets."sabnzbd/api_key".path;
+    #       nzb_key._secret = config.sops.secrets."sabnzbd/nzb_key".path;
+    #       username._secret = config.sops.secrets."sabnzbd/username".path;
+    #       password._secret = config.sops.secrets."sabnzbd/password".path;
+    #     };
+    #   };
+    # };
 
     jellyfin = {
       enable = true;
