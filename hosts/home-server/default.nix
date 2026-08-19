@@ -11,7 +11,8 @@
 
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
-    age.keyFile = "/var/lib/sops-nix/key.txt";
+    defaultSopsFormat = "yaml";
+    age.keyFile = "/root/.config/sops/age/keys.txt";
   };
 
   environment.systemPackages = with pkgs; [
