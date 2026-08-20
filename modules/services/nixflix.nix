@@ -68,6 +68,7 @@
 
     jellyfin = {
       enable = true;
+      vpn.enable = true;
       apiKey._secret = config.sops.secrets."jellyfin/api_key".path;
       users.admin = {
         policy.isAdministrator = true;
