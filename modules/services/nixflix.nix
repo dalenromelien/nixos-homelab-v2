@@ -52,6 +52,8 @@
           {name = "The Pirate Bay";}
           {name = "AnimeTosho";}
           {name = "LimeTorrents";}
+          {name = "Internet Archive";}
+          {name = "kickasstorents.to";}
         ];
       };
     };
