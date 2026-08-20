@@ -13,7 +13,7 @@
   system.autoUpgrade = {
     enable = true;
     flake = "github:dalenromelien/nixos-homelab-v2#home-server";
-    dates = "daily"; # or any systemd calendar spec
+    dates = "monthly"; # or any systemd calendar spec
     randomizedDelaySec = "45min";
   };
 

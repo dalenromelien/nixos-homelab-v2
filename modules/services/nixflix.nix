@@ -19,7 +19,6 @@
     flaresolverr.enable = true;
 
     sonarr = {
-      vpn.enable = true;
       enable = true;
       config = {
         apiKey._secret = config.sops.secrets."sonarr/api_key".path;
@@ -28,7 +27,6 @@
     };
 
     radarr = {
-      vpn.enable = true;
       enable = true;
       config = {
         apiKey._secret = config.sops.secrets."radarr/api_key".path;
@@ -37,7 +35,6 @@
     };
 
     lidarr = {
-      vpn.enable = true;
       enable = true;
       config = {
         apiKey._secret = config.sops.secrets."lidarr/api_key".path;
@@ -46,7 +43,6 @@
     };
 
     prowlarr = {
-      vpn.enable = true;
       enable = true;
       config = {
         apiKey._secret = config.sops.secrets."prowlarr/api_key".path;
@@ -68,7 +64,6 @@
 
     jellyfin = {
       enable = true;
-      vpn.enable = true;
       apiKey._secret = config.sops.secrets."jellyfin/api_key".path;
       users.admin = {
         policy.isAdministrator = true;
@@ -77,7 +72,6 @@
     };
 
     seerr = {
-      vpn.enable = true;
       enable = true;
       apiKey._secret = config.sops.secrets."seerr/api_key".path;
     };
