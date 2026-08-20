@@ -70,6 +70,12 @@
       enable = true;
       apiKey._secret = config.sops.secrets."seerr/api_key".path;
     };
+    
+    vpn = {
+      enable = true;
+      wgConfFile = config.sops.secrets."wireguard-conf".path;
+      accessibleFrom = ["192.168.1.0/24"];
+    };
   };
 
   sops.secrets = {
@@ -88,5 +94,9 @@
     "jellyfin/admin_password" = {};
     "jellyfin/api_key" = {};
     "seerr/api_key" = {};
+    "wireguard-conf" = {
+      sopsFile = ../../secrets/wg0.conf;   # explicit override — this IS a separate file
+      format = "binary";
+    };
   };
 }
