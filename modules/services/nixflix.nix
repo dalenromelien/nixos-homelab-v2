@@ -10,8 +10,13 @@
     stateDir = "/data/.state";
     mediaUsers = [ "root" ];
 
-    caddy.enable = true;
+    caddy = {
+      enable = true;
+      tls.internal = true;
+    };
     postgres.enable = true;
+
+    flaresolverr.enable = true;
 
     sonarr = {
       enable = true;
@@ -38,6 +43,7 @@
     };
 
     prowlarr = {
+      vpn.enable = true;
       enable = true;
       config = {
         apiKey._secret = config.sops.secrets."prowlarr/api_key".path;
