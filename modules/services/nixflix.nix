@@ -48,12 +48,10 @@
         apiKey._secret = config.sops.secrets."prowlarr/api_key".path;
         hostConfig.password._secret = config.sops.secrets."prowlarr/password".path;
         indexers = [
-          {name = "1337x";}
           {name = "The Pirate Bay";}
           {name = "AnimeTosho";}
           {name = "LimeTorrents";}
-          {name = "Internet Archive";}
-          {name = "kickasstorents.to";}
+          {name = "kickasstorents";}
         ];
       };
     };
