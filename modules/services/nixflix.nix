@@ -12,8 +12,8 @@
 
     caddy = {
       enable = true;
-      tls.internal = true;
     };
+    
     postgres.enable = true;
 
     flaresolverr.enable = true;
