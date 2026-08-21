@@ -89,12 +89,6 @@
       wgConfFile = config.sops.secrets."wireguard-conf".path;
       accessibleFrom = ["192.168.1.0/24"];
     };
-
-    # Explicitly keep the Starr apps off the VPN
-    prowlarr.vpn.enable = false;
-    sonarr.vpn.enable = false;
-    radarr.vpn.enable = false;
-    lidarr.vpn.enable = false;
   };
 
   sops.secrets = {
