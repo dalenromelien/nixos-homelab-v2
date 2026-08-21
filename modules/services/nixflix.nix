@@ -18,6 +18,8 @@
 
     flaresolverr.enable = true;
 
+    config.nixflix.torrentClients.qbittorrent.enable = true;
+
     sonarr = {
       enable = true;
       config = {
