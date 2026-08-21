@@ -18,8 +18,6 @@
 
     flaresolverr.enable = true;
 
-    torrentClients.qbittorrent.enable = true;
-
     sonarr = {
       enable = true;
       config = {
