@@ -18,6 +18,18 @@
 
     flaresolverr.enable = true;
 
+    theme = {
+      enable = true;
+      name = "overseerr";
+    };
+
+    recyclarr = {
+      enable = true;
+      cleanupUnmanagedProfiles = true;      
+    };
+
+    downloadarr.qbittorrent.enable = true;
+
     sonarr = {
       enable = true;
       config = {
