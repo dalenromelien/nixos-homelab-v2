@@ -41,6 +41,7 @@
     nssTools
     age
     sops
+    jq
   ];
 
   system.stateVersion = "26.05";
