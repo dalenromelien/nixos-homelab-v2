@@ -28,8 +28,6 @@
     #   cleanupUnmanagedProfiles = true;      
     # };
 
-    navidrome.enable = false;
-
     torrentClients.qbittorrent.enable = true;
 
     sonarr = {
