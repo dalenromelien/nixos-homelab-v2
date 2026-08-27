@@ -28,7 +28,9 @@
     #   cleanupUnmanagedProfiles = true;      
     # };
 
-    downloadarr.qbittorrent.enable = true;
+    torrentClients.qbittorrent = {
+      enable = true;
+    };
 
     sonarr = {
       enable = true;
