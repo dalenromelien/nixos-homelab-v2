@@ -25,7 +25,9 @@
 
     torrentClients.qbittorrent = {
       enable = true;
-      password = "password";
+      password = {
+        _secret = config.sops.secrets."qbittorrent/password".path;
+      };
     };
 
     sonarr = {
