@@ -33,17 +33,6 @@
         inherit system;
         specialArgs = { inherit inputs; };
         modules = [
-          {
-            nixpkgs.overlays = [
-              (final: prev: {
-                caddy = prev.caddy.overrideAttrs (old: {
-                  # Temporary workaround for stale upstream nixflix Caddy source hash.
-                  # Replace the old pinned value with the actual hash returned by Nix.
-                  hash = "sha256-G4JUGEB6ptAu82noB6vayv32stOnZkUn7uGXq+I7vrQ=";
-                });
-              })
-            ];
-          }
           disko.nixosModules.disko
           sops-nix.nixosModules.sops
         ] ++ modules;
@@ -69,6 +58,16 @@
             disko.nixosModules.disko
             ./hosts/home-server/default.nix
             nixflix.nixosModules.default
+            {
+              nixpkgs.overlays = [
+                (final: prev: {
+                  caddy = prev.caddy.overrideAttrs (old: {
+                    # temporary workaround: upstream nixflix is building a stale Caddy source hash
+                    hash = "sha256-G4JUGEB6ptAu82noB6vayv32stOnZkUn7uGXq+I7vrQ=";
+                  });
+                })
+              ];
+            }
           ]
           (if hasFacterJson then [ { hardware.facter.reportPath = ./facter.json; } ] else [])
         ];
