@@ -23,24 +23,17 @@
       name = "overseerr";
     };
 
-    # recyclarr = {
-    #   enable = true;
-    #   cleanupUnmanagedProfiles = true;      
-    # };
-
-    downloadarr = {
+    recyclarr = {
       enable = true;
-      qbittorrent = {
-        enable = true;
-        # categories = {
-
-        # };
-        username = "admin";
-        password._secret = config.sops.secrets."qbittorrent/password".path;
-      };
+      cleanupUnmanagedProfiles = true;      
     };
 
-    torrentClients.qbittorrent.enable = true;
+    torrentClients.qbittorrent = {
+      enable = true;
+      password = {
+        _secret = config.sops.secrets."qbittorrent/password".path;
+      };
+    };
 
     sonarr = {
       enable = true;
