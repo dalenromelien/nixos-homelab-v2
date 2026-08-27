@@ -32,7 +32,7 @@
         Preferences = {
           WebUI = {
             Username = "admin";
-            Password_PBKDF2 = password;
+            Password_PBKDF2 = "password";
           };
         };
       };
