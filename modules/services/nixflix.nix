@@ -23,12 +23,7 @@
       name = "overseerr";
     };
 
-    torrentClients.rtorrent = {
-      enable = true;
-      password = {
-        _secret = config.sops.secrets."qbittorrent/password".path;
-      };
-    };
+    downloadarr.rtorrent.enable = true;
 
     sonarr = {
       enable = true;
