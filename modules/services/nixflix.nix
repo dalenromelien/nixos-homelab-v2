@@ -25,7 +25,6 @@
 
     torrentClients.qbittorrent = {
       enable = true;
-      user = "qbittorrent";
       password = {
         _secret = config.sops.secrets."qbittorrent/password".path;
       };
