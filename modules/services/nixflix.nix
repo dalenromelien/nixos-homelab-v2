@@ -25,8 +25,16 @@
 
     torrentClients.qbittorrent = {
       enable = true;
+      user = "qbittorrent";
       password = {
         _secret = config.sops.secrets."qbittorrent/password".path;
+      };
+      serverConfig = {
+        Preferences = {
+          WebUI = {
+            Password_PBKDF2 = config.sops.secrets."qbittorrent/password".path;
+          };
+        };
       };
     };
 
