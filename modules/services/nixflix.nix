@@ -109,6 +109,7 @@
     "prowlarr/password" = {};
     "jellyfin/admin_password" = {};
     "jellyfin/api_key" = {};
+    "qbittorrent/password" = {};
     "seerr/api_key" = {};
     "wireguard-conf" = {
       sopsFile = ../../secrets/wg0.conf;   # explicit override — this IS a separate file
