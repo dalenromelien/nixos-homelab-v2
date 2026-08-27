@@ -23,13 +23,9 @@
       name = "overseerr";
     };
 
-    downloadarr = {
+    torrentClients.qbittorrent = {
       enable = true;
-      rtorrent = {
-        enable = true;
-        username = "admin";
-        password._secret = config.sops.secrets."qbittorrent/password".path;
-      };
+      password._secret = config.sops.secrets."qbittorrent/password".path;
     };
 
     sonarr = {
