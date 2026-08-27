@@ -39,6 +39,7 @@
       };
       transmission = {
         enable = true;
+        username = "admin";
         password._secret = config.sops.secrets."qbittorrent/password".path;
       };
     };
