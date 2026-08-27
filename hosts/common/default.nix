@@ -18,6 +18,11 @@
 
   users.users.root.initialPassword = "nix";
 
+  services.caddy.package = lib.mkForce (pkgs.caddy.withPlugins {
+    plugins = [ "github.com/caddyserver/replace-response@v0.0.0-20250618171559-80962887e4c6" ];
+    hash = "sha256-G4JUGEB6ptAu82noB6vayv32stOnZkUn7uGXq+I7vrQ=";
+  });
+
   security.sudo.wheelNeedsPassword = false;
 
   sops = {
