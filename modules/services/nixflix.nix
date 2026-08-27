@@ -36,7 +36,7 @@
 
         # };
         username = "admin";
-        password._secret = config.sops.secrets."qbittorrrent/password".path;
+        password._secret = config.sops.secrets."qbittorrent/password".path;
       };
     };
 
