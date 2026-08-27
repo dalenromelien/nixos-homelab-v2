@@ -28,10 +28,17 @@
     #   cleanupUnmanagedProfiles = true;      
     # };
 
-    # torrentClients.qbittorrent = {
-    #   enable = true;
+    downloadarr = {
+      enable = true;
+      qbittorrent = {
+        enable = true;
+        # categories = {
 
-    # };
+        # };
+        username = admin;
+        password._secret = config.sops.secrets."qbittorrrent/password".path;
+      };
+    };
 
     sonarr = {
       enable = true;
