@@ -23,12 +23,28 @@
       name = "overseerr";
     };
 
-    deluge = {
-      enable = true;
-      password = {
-        _secret = config.sops.secrets."qbittorrent/password".path;
+    downloadarr = {
+      deluge = {
+        enable = true;
+        password._secret = config.sops.secrets."qbittorrent/password".path;
       };
-    };
+      qbittorrent = {
+        enable = true;
+        password._secret = config.sops.secrets."qbittorrent/password".path;
+      };
+      rtorrent = {
+        enable = true;
+        password._secret = config.sops.secrets."qbittorrent/password".path;
+      };
+      sabnzbd = {
+        enable = true;
+        password._secret = config.sops.secrets."qbittorrent/password".path;
+      };
+      transmission = {
+        enable = true;
+        password._secret = config.sops.secrets."qbittorrent/password".path;
+      };
+    }
 
     sonarr = {
       enable = true;
