@@ -31,7 +31,8 @@
       serverConfig = {
         Preferences = {
           WebUI = {
-            Password_PBKDF2 = config.sops.secrets."qbittorrent/password".path;
+            Username = "admin";
+            Password_PBKDF2 = password;
           };
         };
       };
