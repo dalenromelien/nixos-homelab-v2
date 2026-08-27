@@ -25,9 +25,6 @@
 
     downloadarr.rtorrent = {
       enable = true;
-      password = {
-        _secret = config.sops.secrets."qbittorrent/password".path;
-      };
     };
 
     sonarr = {
