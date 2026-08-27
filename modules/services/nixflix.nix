@@ -23,19 +23,19 @@
       name = "overseerr";
     };
 
-    # torrentClients.qbittorrent = {
-    #   enable = true;
-    #   password = {
-    #     _secret = config.sops.secrets."qbittorrent/password".path;
-    #   };
-    #   serverConfig = {
-    #     Preferences = {
-    #       WebUI = {
-    #         Password_PBKDF2 = config.sops.secrets."qbittorrent/password".path;
-    #       };
-    #     };
-    #   };
-    # };
+    torrentClients.qbittorrent = {
+      enable = true;
+      password = {
+        _secret = config.sops.secrets."qbittorrent/password".path;
+      };
+      serverConfig = {
+        Preferences = {
+          WebUI = {
+            Password_PBKDF2 = config.sops.secrets."qbittorrent/password".path;
+          };
+        };
+      };
+    };
 
     sonarr = {
       enable = true;
