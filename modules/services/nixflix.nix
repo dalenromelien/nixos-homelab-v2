@@ -37,10 +37,6 @@
         username = "admin";
         password._secret = config.sops.secrets."qbittorrent/password".path;
       };
-      sabnzbd = {
-        enable = true;
-        password._secret = config.sops.secrets."qbittorrent/password".path;
-      };
       transmission = {
         enable = true;
         password._secret = config.sops.secrets."qbittorrent/password".path;
