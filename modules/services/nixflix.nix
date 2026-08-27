@@ -23,7 +23,7 @@
       name = "overseerr";
     };
 
-    torrentClients.qbittorrent = {
+    torrentClients.rtorrent = {
       enable = true;
       password = {
         _secret = config.sops.secrets."qbittorrent/password".path;
