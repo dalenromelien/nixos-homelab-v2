@@ -23,11 +23,6 @@
       name = "overseerr";
     };
 
-    recyclarr = {
-      enable = true;
-      cleanupUnmanagedProfiles = true;      
-    };
-
     downloadarr = {
       enable = true;
       rtorrent = {
