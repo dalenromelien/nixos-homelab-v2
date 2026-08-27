@@ -28,16 +28,6 @@
       password = {
         _secret = config.sops.secrets."qbittorrent/password".path;
       };
-      serverConfig = {
-        Preferences = {
-          WebUI = {
-            Username = "admin";
-            Password_PBKDF2 = {
-              _secret = config.sops.secrets."qbittorrent/password".path;
-            };
-          };
-        };
-      };
     };
 
     sonarr = {
