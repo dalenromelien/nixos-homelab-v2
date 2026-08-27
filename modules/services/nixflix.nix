@@ -23,6 +23,21 @@
       name = "overseerr";
     };
 
+    torrentClients.qbittorrent = {
+      enable = true;
+      password = {
+        _secret = config.sops.secrets."qbittorrent/password".path;
+      };
+      serverConfig = {
+        Preferences = {
+          WebUI = {
+            Username = "admin";
+            Password_PBKDF2 = "@ByteArray(gsfKcIQ8G4OnbODb+dkkCA==:cvgBTXZx60A+dPUKBt7zmCbqLqxBblBzUpHgDKiUuaGbOiQA3Eez/OCT58BbvZ0n84BfsmCUyr1u4PKQUHuXTQ==)";
+          };
+        };
+      };
+    };
+
     sonarr = {
       enable = true;
       config = {
