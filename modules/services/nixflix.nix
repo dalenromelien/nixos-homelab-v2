@@ -23,8 +23,11 @@
       name = "overseerr";
     };
 
-    downloadarr.rtorrent = {
+    downloadarr.deluge = {
       enable = true;
+      password = {
+        _secret = config.sops.secrets."qbittorrent/password".path;
+      };
     };
 
     sonarr = {
