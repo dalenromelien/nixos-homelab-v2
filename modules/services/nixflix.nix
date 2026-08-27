@@ -32,7 +32,9 @@
         Preferences = {
           WebUI = {
             Username = "admin";
-            Password_PBKDF2 = "password";
+            Password_PBKDF2 = {
+              _secret = config.sops.secrets."qbittorrent/password".path;
+            };
           };
         };
       };
