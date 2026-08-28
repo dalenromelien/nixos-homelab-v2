@@ -23,6 +23,11 @@
       name = "overseerr";
     };
 
+    recyclarr = {
+      enable = true;
+      cleanupUnmanagedProfiles = true;
+    };
+
     torrentClients.qbittorrent = {
       enable = true;
       password = {
