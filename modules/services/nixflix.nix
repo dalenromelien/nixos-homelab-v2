@@ -23,20 +23,18 @@
       name = "overseerr";
     };
 
-    # recyclarr = {
-    #   enable = true;
-    #   cleanupUnmanagedProfiles = true;      
-    # };
-
-    downloadarr = {
+    torrentClients.qbittorrent = {
       enable = true;
-      qbittorrent = {
-        enable = true;
-        # categories = {
-
-        # };
-        username = admin;
-        password._secret = config.sops.secrets."qbittorrrent/password".path;
+      password = {
+        _secret = config.sops.secrets."qbittorrent/password".path;
+      };
+      serverConfig = {
+        Preferences = {
+          WebUI = {
+            Username = "admin";
+            Password_PBKDF2 = "@ByteArray(NrS3ZNjXsAoCn22vQrzPJA==:sauqFy8IkJ3PSlnV1OBFzWXekqG7fnKjWq9nSGjsYAJzyQIKdQ59SS3jXHH4TY2x0otmLCCZgYrkCx1YNLu8eQ==)";
+          };
+        };
       };
     };
 
@@ -109,6 +107,7 @@
     "prowlarr/password" = {};
     "jellyfin/admin_password" = {};
     "jellyfin/api_key" = {};
+    "qbittorrent/password" = {};
     "seerr/api_key" = {};
     "wireguard-conf" = {
       sopsFile = ../../secrets/wg0.conf;   # explicit override — this IS a separate file
