@@ -23,7 +23,7 @@
     clients.w0 = {
       login = {
         enable = true;
-        setupKeyFile = config.sops.secrets."netbird_setup_key".path;
+        setupKeyFile = config.sops.secrets."netbird_setup_key/key".path;
       };
       port = 51821;
       ui.enable = false;
