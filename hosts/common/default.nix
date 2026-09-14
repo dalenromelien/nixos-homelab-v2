@@ -1,5 +1,9 @@
 { config, pkgs, lib, ... }:
 {
+  sops.secrets = {
+    "netbird_setup_key/key" = {};
+  };
+  
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -14,7 +18,13 @@
 
   boot.loader.grub.enable = false;
 
-  services.netbird.enable = true;
+  services.netbird = {
+    enable = true;
+    clients.w0.login = {
+      enable = true;
+      setupKeyFile = config.sops.secrets."netbird_setup_key".path;
+    };
+  };
 
   users.users.root.initialPassword = "nix";
 
