@@ -20,9 +20,15 @@
 
   services.netbird = {
     enable = true;
-    clients.w0.login = {
-      enable = true;
-      setupKeyFile = config.sops.secrets."netbird_setup_key".path;
+    clients.w0 = {
+      login = {
+        enable = true;
+        setupKeyFile = config.sops.secrets."netbird_setup_key".path;
+      };
+      port = 51821;
+      ui.enable = false;
+      openFirewall = true;
+      openInternalFirewall = true;
     };
   };
 
