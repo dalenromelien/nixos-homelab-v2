@@ -16,7 +16,7 @@
     };
   };
 
-  boot.loader.grub.enable = false;
+  boot.loader.grub.enable = true;
 
   services.netbird = {
     enable = true;
