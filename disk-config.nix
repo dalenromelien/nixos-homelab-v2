@@ -3,7 +3,7 @@
     disk = {
       boot = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-TOSHIBA_19LPA970PNWP";
+        device = "/dev/disk/by-id/ata-T-FORCE_T253TY001T_TPBF2501310050101431";
         content = {
           type = "gpt";
           partitions = {
@@ -30,9 +30,9 @@
         };
       };
 
-      ssd = {
+      nvme = {
         type = "disk";
-        device = "/dev/disk/by-id/ata-T-FORCE_T253TY001T";
+        device = "/dev/disk/by-id/nvme-KBG30ZMT128G_TOSHIBA_19LPA970PNWP";
         content = {
           type = "gpt";
           partitions = {
@@ -41,7 +41,7 @@
               content = {
                 type = "filesystem";
                 format = "ext4";
-                mountpoint = "/DATA/.media/SSD-Storage";
+                mountpoint = "/DATA/.media/NVMe-Storage";
               };
             };
           };
@@ -50,7 +50,7 @@
 
       raid-1 = {
         type = "disk";
-        device = "/dev/disk/by-id/ata-ST4000NM0033-9ZM_1";
+        device = "/dev/disk/by-id/ata-ST4000NM0033-9ZM170_S1Z2W02P";
         content = {
           type = "gpt";
           partitions = {
@@ -64,7 +64,7 @@
 
       raid-2 = {
         type = "disk";
-        device = "/dev/disk/by-id/ata-WDC_WD42PURZ-85B4YY0";
+        device = "/dev/disk/by-id/ata-WDC_WD42PURZ-85B4YY0_WD-WX72D43MNJ3P";
         content = {
           type = "gpt";
           partitions = {
