@@ -75,7 +75,7 @@ in
         lease_duration = 86400;
         icmp_timeout_msec = 0;
       };
-      local_domain_name = "home";
+      local_domain_name = "lan";
     };
 
     dns = {
