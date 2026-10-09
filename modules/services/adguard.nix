@@ -16,7 +16,7 @@ in
         dhcpv4 = {
           gateway_ip = "192.168.1.1";
           subnet_mask = "255.255.255.0";
-          range_start = "192.168.1.64";
+          range_start = "192.168.1.65";
           range_end = "192.168.1.200";
           lease_duration = 86400;
           icmp_timeout_msec = 0;
