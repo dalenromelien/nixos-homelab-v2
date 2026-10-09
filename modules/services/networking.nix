@@ -3,11 +3,9 @@
 let
   serverIP = "192.168.1.2";
   routerIP = "192.168.1.254";
-  netbirdIP = "100.104.130.42";
   ports = import ./utils/ports.nix;
 
   lanDomain = "home";
-  vpnDomain = "away";
 
   services = {
     immich    = ports.immich;
@@ -16,7 +14,7 @@ let
   };
 
   mkVhost = name: port: lib.nameValuePair
-    "${name}.${lanDomain}, ${name}.${vpnDomain}"
+    "${name}.${lanDomain}"
     {
       extraConfig = ''
         tls internal
@@ -43,6 +41,10 @@ in
     allowedTCPPorts = [ 53 ];
     allowedUDPPorts = [ 53 67 ];
   };
+  networking.firewall.interfaces."nb-w0" = {
+    allowedTCPPorts = [ 53 ];
+    allowedUDPPorts = [ 53 ];
+  };
 
   services.caddy = {
     enable = true;
@@ -59,8 +61,7 @@ in
 
   services.adguardhome.settings = {
     filtering.rewrites = [
-      { domain = "*.${lanDomain}"; answer = serverIP; }
-      { domain = "*.${vpnDomain}"; answer = netbirdIP; }
+      { domain = "*.${lanDomain}"; answer = serverIP; enabled = true; }
     ];
 
     dhcp = {
@@ -78,7 +79,7 @@ in
     };
 
     dns = {
-      bind_hosts = [ "127.0.0.1" serverIP ];
+      bind_hosts = [ "0.0.0.0" ];
       upstream_dns = [
         "tls://dns.quad9.net"
         "tls://one.one.one.one"
