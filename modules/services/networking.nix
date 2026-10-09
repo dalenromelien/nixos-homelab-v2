@@ -6,8 +6,8 @@ let
   netbirdIP = "100.104.130.42";     
   ports = import ./utils/ports.nix;
 
-  lanDomain = "lan.home.arpa";    # used at home    -> serverIP
-  vpnDomain = "vpn.home.arpa";    # used via Netbird -> netbirdIP
+  lanDomain = "home";    # used at home    -> serverIP
+  vpnDomain = "away";    # used via Netbird -> netbirdIP
   networking.hostName = "nixos-homelab";
   networking.useDHCP = lib.mkDefault true;
   networking.defaultGateway = "192.168.1.254";

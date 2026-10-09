@@ -27,6 +27,7 @@
       raid10 = {
         type = "mdadm";
         level = 10;
+        metadata = "1.0";
         content = { type = "gpt"; partitions = { data = { size = "100%"; content = { type = "filesystem"; format = "ext4"; mountpoint = "/data"; }; }; }; };
       };
     };
