@@ -3,26 +3,18 @@
 let
   serverIP = "192.168.1.2";
   routerIP = "192.168.1.254";
-  netbirdIP = "100.104.130.42";     
+  netbirdIP = "100.104.130.42";
   ports = import ./utils/ports.nix;
 
   lanDomain = "home";
   vpnDomain = "away";
-  networking.hostName = "nixos-homelab";
-  networking.useDHCP = lib.mkDefault true;
-  networking.defaultGateway = "192.168.1.254";
-  networking.nameservers = [ "127.0.0.1" ];
-  networking.firewall.allowedTCPPorts = [22 53 80 443];
-  networking.firewall.allowedUDPPorts = [53];
 
-  # service name -> local port
   services = {
     immich    = ports.immich;
     adguard   = ports.adguard;
     nextcloud = ports.nextcloud;
   };
 
-  # "immich.lan.home.arpa, immich.vpn.home.arpa" = { ... }
   mkVhost = name: port: lib.nameValuePair
     "${name}.${lanDomain}, ${name}.${vpnDomain}"
     {
@@ -35,7 +27,6 @@ in
 {
   networking.hostName = "home-server";
 
-  # Static addressing: this box is the DHCP server, so it can't be a DHCP client
   networking.useDHCP = false;
   networking.interfaces.eno1 = {
     useDHCP = false;
@@ -45,6 +36,7 @@ in
     }];
   };
   networking.defaultGateway = routerIP;
+  networking.nameservers = [ "127.0.0.1" ];
 
   networking.firewall.allowedTCPPorts = [ 22 80 443 ];
   networking.firewall.interfaces.eno1 = {
