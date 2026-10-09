@@ -3,7 +3,7 @@
 let
   serverIP  = "192.168.1.64";
   routerIP  = "192.168.1.1";      # your router's real LAN IP
-  netbirdIP = "100.64.0.10";      # placeholder: the server's actual Netbird IP
+  netbirdIP = "100.104.130.42";      # placeholder: the server's actual Netbird IP
   ports = import ./utils/ports.nix;
 
   lanDomain = "lan.home.arpa";    # used at home    -> serverIP
