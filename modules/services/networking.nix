@@ -45,11 +45,11 @@ in
     }];
   };
   networking.defaultGateway = routerIP;
-  networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];  # not 127.0.0.1
 
-  networking.firewall = {
-    allowedTCPPorts = [ 22 53 80 443 ];
-    allowedUDPPorts = [ 53 67 ];   # 67 = DHCP server
+  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  networking.firewall.interfaces.eno1 = {
+    allowedTCPPorts = [ 53 ];
+    allowedUDPPorts = [ 53 67 ];
   };
 
   services.caddy = {
