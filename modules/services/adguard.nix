@@ -8,7 +8,7 @@ in
     enable = true;
     host = "127.0.0.1";
     port = ports.adguard;
-    mutableSettings = false;
+    mutableSettings = true;
     settings = {
       filtering = {
         protection_enabled = true;
