@@ -30,6 +30,7 @@
       openFirewall = true;
       openInternalFirewall = true;
     };
+    useRoutingFeatures = "both";
   };
 
   users.users.root.initialPassword = "nix";
