@@ -16,7 +16,14 @@
     };
   };
 
-  boot.loader.grub.enable = true;
+  boot.loader = {
+    grub = {
+      enable = true;
+      device = "nodev"; # "nodev" is used for UEFI
+      efiSupport = true;
+    };
+    efi.canTouchEfiVariables = true;
+  };
 
   services.netbird = {
     enable = true;
