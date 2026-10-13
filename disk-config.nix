@@ -30,27 +30,9 @@
         };
       };
 
-      nvme = {
-        type = "disk";
-        device = "/dev/disk/by-id/nvme-KBG30ZMT128G_TOSHIBA_19LPA970PNWP";
-        content = {
-          type = "gpt";
-          partitions = {
-            storage = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/DATA/.media/NVMe-Storage";
-              };
-            };
-          };
-        };
-      };
-
       raid-1 = {
         type = "disk";
-        device = "/dev/disk/by-id/ata-ST4000NM0033-9ZM170_S1Z2W02P";
+        device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_X882K9FNFSYC";
         content = {
           type = "gpt";
           partitions = {
