@@ -25,7 +25,7 @@
     };
 
     settings = {
-      trusted_domains = [ "nextcloud.vpn.home.arpa" "nextcloud.lan.home.arpa" ];
+      trusted_domains = [ "nextcloud.home" ];
       trusted_proxies = [ "127.0.0.1" ];
       overwriteprotocol = "https";
       mail_smtpmode = "sendmail";
