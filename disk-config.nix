@@ -63,7 +63,6 @@
       raid1 = {
         type = "mdadm";
         level = 1;
-        metadata = "1.0";
         content = {
           type = "gpt";
           partitions = {
