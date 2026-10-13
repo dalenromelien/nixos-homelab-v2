@@ -30,54 +30,54 @@
         };
       };
 
-      raid-1 = {
-        type = "disk";
-        device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_X882K9FNFSYC";
-        content = {
-          type = "gpt";
-          partitions = {
-            data = {
-              size = "100%";
-              content = { type = "mdraid"; name = "raid1"; };
-            };
-          };
-        };
-      };
+      # raid-1 = {
+      #   type = "disk";
+      #   device = "/dev/disk/by-id/ata-TOSHIBA_MG04ACA400N_X882K9FNFSYC";
+      #   content = {
+      #     type = "gpt";
+      #     partitions = {
+      #       data = {
+      #         size = "100%";
+      #         content = { type = "mdraid"; name = "raid1"; };
+      #       };
+      #     };
+      #   };
+      # };
 
-      raid-2 = {
-        type = "disk";
-        device = "/dev/disk/by-id/ata-WDC_WD42PURZ-85B4YY0_WD-WX72D43MNJ3P";
-        content = {
-          type = "gpt";
-          partitions = {
-            data = {
-              size = "100%";
-              content = { type = "mdraid"; name = "raid1"; };
-            };
-          };
-        };
-      };
+      # raid-2 = {
+      #   type = "disk";
+      #   device = "/dev/disk/by-id/ata-WDC_WD42PURZ-85B4YY0_WD-WX72D43MNJ3P";
+      #   content = {
+      #     type = "gpt";
+      #     partitions = {
+      #       data = {
+      #         size = "100%";
+      #         content = { type = "mdraid"; name = "raid1"; };
+      #       };
+      #     };
+      #   };
+      # };
     };
 
-    mdadm = {
-      raid1 = {
-        type = "mdadm";
-        level = 1;
-        metadata = "1.0";
-        content = {
-          type = "gpt";
-          partitions = {
-            data = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/data";
-              };
-            };
-          };
-        };
-      };
-    };
+    # mdadm = {
+    #   raid1 = {
+    #     type = "mdadm";
+    #     level = 1;
+    #     metadata = "1.0";
+    #     content = {
+    #       type = "gpt";
+    #       partitions = {
+    #         data = {
+    #           size = "100%";
+    #           content = {
+    #             type = "filesystem";
+    #             format = "ext4";
+    #             mountpoint = "/data";
+    #           };
+    #         };
+    #       };
+    #     };
+    #   };
+    # };
   };
 }
