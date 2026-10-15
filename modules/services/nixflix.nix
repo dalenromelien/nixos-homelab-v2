@@ -69,7 +69,6 @@
         hostConfig.password._secret = config.sops.secrets."prowlarr/password".path;
         indexers = [
           {name = "The Pirate Bay";}
-          {name = "AnimeTosho";}
           {name = "LimeTorrents";}
         ];
       };
