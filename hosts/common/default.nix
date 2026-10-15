@@ -3,6 +3,8 @@
   sops.secrets = {
     "netbird_setup_key/key" = {};
   };
+
+  services.postgresql.package = pkgs.postgresql_17;
   
   nixpkgs.config.allowUnfree = true;
 
