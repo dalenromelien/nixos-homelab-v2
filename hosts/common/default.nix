@@ -25,6 +25,10 @@
     efi.canTouchEfiVariables = true;
   };
 
+  # this is to stop logs from filling already small boot drive  
+  services.journald.extraConfig = "SystemMaxUse=500M";
+  systemd.coredump.enable = false;
+
   services.netbird = {
     enable = true;
     clients.w0 = {
