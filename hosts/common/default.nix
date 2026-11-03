@@ -3,6 +3,8 @@
   sops.secrets = {
     "netbird_setup_key/key" = {};
   };
+
+  services.postgresql.package = pkgs.postgresql_17;
   
   nixpkgs.config.allowUnfree = true;
 
@@ -16,7 +18,18 @@
     };
   };
 
-  boot.loader.grub.enable = false;
+  boot.loader = {
+    grub = {
+      enable = true;
+      device = "nodev"; # "nodev" is used for UEFI
+      efiSupport = true;
+    };
+    efi.canTouchEfiVariables = true;
+  };
+
+  # this is to stop logs from filling already small boot drive  
+  services.journald.extraConfig = "SystemMaxUse=500M";
+  systemd.coredump.enable = false;
 
   services.netbird = {
     enable = true;
@@ -30,6 +43,7 @@
       openFirewall = true;
       openInternalFirewall = true;
     };
+    useRoutingFeatures = "both";
   };
 
   users.users.root.initialPassword = "nix";
