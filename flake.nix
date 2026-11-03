@@ -53,7 +53,6 @@
         hostname = "home-server";
         system = "x86_64-linux";
         description = "Home Server - Central homelab service hub";
-        specialArgs = { inherit inputs; };
         modules = lib.concatLists [
           [
             disko.nixosModules.disko
