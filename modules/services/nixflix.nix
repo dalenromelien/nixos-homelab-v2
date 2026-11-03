@@ -12,7 +12,10 @@
 
     caddy = {
       enable = true;
-      tls.internal = true;
+      tls = {
+        enable = true;
+        internal = true;
+      }
     };
     
     postgres.enable = true;
