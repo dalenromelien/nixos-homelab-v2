@@ -12,6 +12,7 @@
 
     caddy = {
       enable = true;
+      domain = "home";
       tls = {
         enable = true;
         internal = true;
@@ -21,11 +22,6 @@
     postgres.enable = true;
 
     flaresolverr.enable = true;
-
-    theme = {
-      enable = true;
-      name = "overseerr";
-    };
 
     torrentClients.qbittorrent = {
       enable = true;
