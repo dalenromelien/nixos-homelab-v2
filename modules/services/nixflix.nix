@@ -83,6 +83,7 @@
     seerr = {
       enable = true;
       apiKey._secret = config.sops.secrets."seerr/api_key".path;
+      package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.seerr;
     };
     
     vpn = {
