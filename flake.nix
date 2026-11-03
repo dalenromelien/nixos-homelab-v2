@@ -19,7 +19,6 @@
 
     nixflix = {
       url = "github:kiriwalawren/nixflix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     
   };
