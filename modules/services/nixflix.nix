@@ -15,7 +15,7 @@
       tls = {
         enable = true;
         internal = true;
-      }
+      };
     };
     
     postgres.enable = true;
