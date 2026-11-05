@@ -13,10 +13,6 @@
     caddy = {
       enable = true;
       domain = "home";
-      tls = {
-        enable = true;
-        internal = true;
-      };
     };
     
     postgres.enable = true;
