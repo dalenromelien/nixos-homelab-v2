@@ -11,6 +11,7 @@ let
     immich    = ports.immich;
     adguard   = ports.adguard;
     nextcloud = ports.nextcloud;
+    netdata   = ports.netdata;
   };
 
   mkVhost = name: port: lib.nameValuePair
