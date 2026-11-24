@@ -11,6 +11,7 @@ let
     immich    = ports.immich;
     adguard   = ports.adguard;
     nextcloud = ports.nextcloud;
+    netdata   = ports.netdata;
   };
 
   mkVhost = name: port: lib.nameValuePair
@@ -36,7 +37,7 @@ in
   networking.defaultGateway = routerIP;
   networking.nameservers = [ "127.0.0.1" ];
 
-  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 443 8088 ];
   networking.firewall.interfaces.eno1 = {
     allowedTCPPorts = [ 53 ];
     allowedUDPPorts = [ 53 67 ];
@@ -48,7 +49,15 @@ in
 
   services.caddy = {
     enable = true;
-    virtualHosts = lib.mapAttrs' mkVhost services;
+    virtualHosts = lib.mapAttrs' mkVhost services // {
+      "http://:8088".extraConfig = ''
+        root * /var/lib/caddy/.local/share/caddy/pki/authorities/local
+        rewrite * /root.crt
+        header Content-Type application/x-x509-ca-cert
+        header Content-Disposition `attachment; filename="home-ca.crt"`
+        file_server
+      '';
+    };
   };
 
   # Keeps nginx off 80/443 so Caddy can have them (Nextcloud needs nginx)

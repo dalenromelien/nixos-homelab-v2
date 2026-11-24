@@ -1,4 +1,4 @@
-{ config, lib, inputs, ... }:
+{ config, lib, inputs, pkgs, ... }:
 {
   imports = [
     inputs.nixflix.nixosModules.default
@@ -12,16 +12,12 @@
 
     caddy = {
       enable = true;
+      domain = "home";
     };
     
     postgres.enable = true;
 
     flaresolverr.enable = true;
-
-    theme = {
-      enable = true;
-      name = "overseerr";
-    };
 
     torrentClients.qbittorrent = {
       enable = true;
@@ -67,11 +63,6 @@
       config = {
         apiKey._secret = config.sops.secrets."prowlarr/api_key".path;
         hostConfig.password._secret = config.sops.secrets."prowlarr/password".path;
-        indexers = [
-          {name = "The Pirate Bay";}
-          {name = "AnimeTosho";}
-          {name = "LimeTorrents";}
-        ];
       };
     };
 
@@ -87,6 +78,7 @@
     seerr = {
       enable = true;
       apiKey._secret = config.sops.secrets."seerr/api_key".path;
+      package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.seerr;
     };
     
     vpn = {

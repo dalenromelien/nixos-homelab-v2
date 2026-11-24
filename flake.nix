@@ -4,6 +4,7 @@
   inputs = {
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     disko = {
       url = "github:nix-community/disko/latest";
@@ -24,7 +25,7 @@
     
   };
 
-  outputs = { nixpkgs, disko, sops-nix, nixflix, ... } @ inputs:
+  outputs = { nixpkgs, disko, sops-nix, ... } @ inputs:
   let
     lib = nixpkgs.lib;
     hasFacterJson = builtins.pathExists ./facter.json;
@@ -57,17 +58,6 @@
           [
             disko.nixosModules.disko
             ./hosts/home-server/default.nix
-            nixflix.nixosModules.default
-            {
-              nixpkgs.overlays = [
-                (final: prev: {
-                  caddy = prev.caddy.overrideAttrs (old: {
-                    # temporary workaround: upstream nixflix is building a stale Caddy source hash
-                    hash = "sha256-G4JUGEB6ptAu82noB6vayv32stOnZkUn7uGXq+I7vrQ=";
-                  });
-                })
-              ];
-            }
           ]
           (if hasFacterJson then [ { hardware.facter.reportPath = ./facter.json; } ] else [])
         ];

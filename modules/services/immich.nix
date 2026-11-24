@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   ports = import ./utils/ports.nix;
@@ -10,5 +10,6 @@ in
     host = "127.0.0.1";
     mediaLocation = "/data/immich";
     environment.IMMICH_LOG_LEVEL = "warn";
+    package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.immich;
   };
 }

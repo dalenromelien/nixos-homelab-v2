@@ -3,6 +3,8 @@
   sops.secrets = {
     "netbird_setup_key/key" = {};
   };
+
+  services.postgresql.package = pkgs.postgresql_17;
   
   nixpkgs.config.allowUnfree = true;
 
@@ -25,6 +27,10 @@
     efi.canTouchEfiVariables = true;
   };
 
+  # this is to stop logs from filling already small boot drive  
+  services.journald.extraConfig = "SystemMaxUse=500M";
+  systemd.coredump.enable = false;
+
   services.netbird = {
     enable = true;
     clients.w0 = {
@@ -41,11 +47,6 @@
   };
 
   users.users.root.initialPassword = "nix";
-
-  services.caddy.package = lib.mkForce (pkgs.caddy.withPlugins {
-    plugins = [ "github.com/caddyserver/replace-response@v0.0.0-20250618171559-80962887e4c6" ];
-    hash = "sha256-G4JUGEB6ptAu82noB6vayv32stOnZkUn7uGXq+I7vrQ=";
-  });
 
   security.sudo.wheelNeedsPassword = false;
 

@@ -5,5 +5,6 @@
     ../../modules/services/immich.nix
     ../../modules/services/nextcloud.nix
     ../../modules/services/networking.nix
+    ../../modules/services/netdata.nix
   ];
 }
